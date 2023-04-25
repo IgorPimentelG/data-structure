@@ -1,0 +1,15 @@
+{
+  "name": "linked-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:single": "tsc ./linked-list/single-linked-list/app.ts && node ./linked-list/single-linked-list/app.js",
+    "build:doubly": "tsc ./linked-list/doubly-linked-list/app.ts && node ./linked-list/doubly-linked-list/app.js",
+    "build:circular": "tsc ./linked-list/circular-linked-list/app.ts && node ./linked-list/circular-linked-list/app.js",
+    "build:stack": "tsc ./stack/app.ts && node ./stack/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

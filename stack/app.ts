@@ -9,9 +9,6 @@ for (let i = 10; i > 0; i--) {
   stack.push(`${i}`);
 }
 
-// Show stack length
-stack.getSize();
-
 // Show the stack
 stack.print();
 

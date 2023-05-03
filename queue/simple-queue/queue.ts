@@ -2,8 +2,8 @@ import { Node } from "./node";
 import { IStack, LinkedList } from "./types";
 
 export class Queue implements IStack {
-  root: LinkedList | null = null;
-  size = 0;
+  private root: LinkedList | null = null;
+  private size = 0;
 
   enqueue(data: string) {
     const node = new Node(data);
@@ -54,4 +54,3 @@ export class Queue implements IStack {
     this.size--;
   }
 }
-

@@ -10,7 +10,8 @@
     "build:stack": "tsc ./stack/app.ts && node ./stack/app.js",
     "build:queue": "tsc ./queue/simple-queue/app.ts && node ./queue/app.js",
     "build:circular-queue": "tsc ./queue/circular-queue/app.ts && node ./queue/circular-queue/app.js",
-    "build:priority-queue": "tsc ./queue/priority-queue/app.ts && node ./queue/priority-queue/app.js"
+    "build:priority-queue": "tsc ./queue/priority-queue/app.ts && node ./queue/priority-queue/app.js",
+    "build:binary-tree": "tsc ./tree/binary-tree/app.ts && node ./tree/binary-tree/app.js"
   },
   "keywords": [],
   "author": "",

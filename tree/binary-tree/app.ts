@@ -16,6 +16,14 @@ tree.insert(1);
 tree.insert(4);
 tree.insert(11);
 
+// Show min and max
+console.log(`🚀 ~ min: ${tree.min()?.data}`);
+console.log(`🚀 ~ max: ${tree.max()?.data}`);
+
+// Remove
+tree.remove(5);
+tree.remove(12);
+
 // Show
 tree.preorder();
 tree.inorder();

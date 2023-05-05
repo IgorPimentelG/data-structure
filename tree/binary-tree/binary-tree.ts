@@ -33,16 +33,26 @@ export class BinaryTree implements Tree {
     if (!this.root) {
       console.log("🚀 ~ Empty Tree");
     } else {
-      const findFatherNode = (node: Node) => {
-        if (node.left?.data === data || node.right?.data === data) {
-          return node;
+      const findNode = (value: number, node: Node): Node | null => {
+        if (value < node.data && node.left) {
+          node.left = findNode(data, node.left);
+        } else if (value > node.data && node.right) {
+          node.right = findNode(data, node.right);
+        } else {
+          if (!node.left) {
+            return node.right;
+          } else if (!node.right) {
+            return node.left;
+          } else {
+            const minValue = this.min(node.right);
+            node.data = minValue!.data;
+            node.right = findNode(value, node.right);
+          }
         }
-
-        if (node.left) findFatherNode(node.left);
-        if (node.right) findFatherNode(node.right);
+        return node;
       }
 
-      const fatherNode = findFatherNode(this.root);
+      findNode(data, this.root);
     }
   }
 
@@ -59,6 +69,30 @@ export class BinaryTree implements Tree {
   postorder() {
     const values = this.getValues("POST_ORDER");
     console.log(`🚀 ~ Pós-order: (${values.join(" - ")})`);
+  }
+
+  min(startNode: Node | null = this.root) {
+    if (startNode) {
+      let node = startNode;
+      while (node.left) {
+        node = node.left;
+      }
+      return node;
+    }
+    console.log("🚀 ~ Empty Tree");
+    return null;
+  }
+
+  max(startNode: Node | null = this.root) {
+    if (startNode) {
+      let node = startNode;
+      while (node.right) {
+        node = node.right;
+      }
+      return node;
+    }
+    console.log("🚀 ~ Empty Tree");
+    return null;
   }
 
   getHeight() {

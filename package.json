@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:single": "tsc ./linked-list/single-linked-list/app.ts && node ./linked-list/single-linked-list/app.js",
-    "build:doubly": "tsc ./linked-list/doubly-linked-list/app.ts && node ./linked-list/doubly-linked-list/app.js",
-    "build:circular": "tsc ./linked-list/circular-linked-list/app.ts && node ./linked-list/circular-linked-list/app.js",
+    "build:linked-single": "tsc ./linked-list/single-linked-list/app.ts && node ./linked-list/single-linked-list/app.js",
+    "build:linked-doubly": "tsc ./linked-list/doubly-linked-list/app.ts && node ./linked-list/doubly-linked-list/app.js",
+    "build:linked-circular": "tsc ./linked-list/circular-linked-list/app.ts && node ./linked-list/circular-linked-list/app.js",
     "build:stack": "tsc ./stack/app.ts && node ./stack/app.js",
     "build:queue": "tsc ./queue/simple-queue/app.ts && node ./queue/app.js",
     "build:circular-queue": "tsc ./queue/circular-queue/app.ts && node ./queue/circular-queue/app.js",
     "build:priority-queue": "tsc ./queue/priority-queue/app.ts && node ./queue/priority-queue/app.js",
-    "build:binary-tree": "tsc ./tree/binary-tree/app.ts && node ./tree/binary-tree/app.js"
+    "build:binary-tree": "tsc ./tree/binary-tree/app.ts && node ./tree/binary-tree/app.js",
+    "build:avl-tree": "tsc ./tree/avl-tree/app.ts && node ./tree/avl-tree/app.js"
   },
   "keywords": [],
   "author": "",

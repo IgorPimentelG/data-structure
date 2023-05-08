@@ -1,7 +1,7 @@
 import { Node } from "./node";
 import { Print, Tree } from "./types";
 
-export class BinaryTree implements Tree {
+export class AVLTree implements Tree {
 
   private root: Node | null = null;
 
@@ -11,6 +11,7 @@ export class BinaryTree implements Tree {
       this.root = node;
     } else {
       this.searchAndInsert(node, this.root);
+      this.balance();
     }
   }
 
@@ -47,27 +48,27 @@ export class BinaryTree implements Tree {
             const minValue = this.min(node.right);
             node.data = minValue!.data;
             node.right = findNode(value, node.right);
+            this.balance();
           }
         }
         return node;
       }
-
       findNode(data, this.root);
     }
   }
 
   preorder() {
-    const values = this.getValues("PRE_ORDER");
+    const values = this.getValuesToPrint("PRE_ORDER");
     console.log(`🚀 ~ Pré-order: (${values.join(" - ")})`);
   }
 
   inorder() {
-    const values = this.getValues("IN_ORDER");
+    const values = this.getValuesToPrint("IN_ORDER");
     console.log(`🚀 ~ Em-order: (${values.join(" - ")})`);
   }
 
   postorder() {
-    const values = this.getValues("POST_ORDER");
+    const values = this.getValuesToPrint("POST_ORDER");
     console.log(`🚀 ~ Pós-order: (${values.join(" - ")})`);
   }
 
@@ -95,12 +96,12 @@ export class BinaryTree implements Tree {
     return null;
   }
 
-  getHeight() {
+  getHeight(startNode: Node | null = this.root) {
     let height = 0;
     let leftHeight = 0;
     let rightHeight = 0;
 
-    if (this.root) {
+    if (startNode) {
       const calculateLeftHeight = (node: Node) => {
         if (node.left) calculateLeftHeight(node.left);
         leftHeight++
@@ -111,15 +112,81 @@ export class BinaryTree implements Tree {
         rightHeight++
       };
 
-      calculateLeftHeight(this.root);
-      calculateRightHeight(this.root);
+      calculateLeftHeight(startNode);
+      calculateRightHeight(startNode);
       height = leftHeight > rightHeight ? leftHeight : rightHeight;
     }
-    console.log("🚀 ~ Height of tree:", height);
     return height;
   }
 
-  private getValues(type: Print) {
+  private balance() {
+    if (this.root) {
+      const calculateBalance = (node: Node) => {
+        const factor = this.calculateFactor(node);
+
+        if (factor > 1) {
+          const leftFactor = this.calculateFactor(node.left as Node);
+          if (leftFactor > 0) {
+            this.rotateToRight(node);
+          } else {
+            this.doubleRotateToRight(node);
+          }
+        } else if (factor < -1) {
+          const rightFactor = this.calculateFactor(node.right as Node);
+          if (rightFactor < 0) {
+            this.rotateToLeft(node);
+          } else {
+            this.doubleRoutateToLeft(node);
+          }
+        }
+        if (node.left) calculateBalance(node.left);
+        if (node.right) calculateBalance(node.right);
+      }
+      calculateBalance(this.root);
+    }
+  }
+
+  private rotateToLeft(node: Node) {
+    const newFather = node?.right || null;
+    node.right = newFather?.left || null;
+
+    if (newFather) newFather.left = node || null;
+
+    if (node.data === this.root!.data) {
+      this.root = newFather;
+    } else if (newFather) {
+      node = newFather;
+    }
+  }
+
+  private rotateToRight(node: Node) {
+    const newFather = node?.left || null;
+    node.left = newFather?.right || null;
+
+    if (newFather) newFather.right = node;
+
+    if (node.data === this.root!.data) {
+      this.root = newFather;
+    } else if (newFather) {
+      node = newFather;
+    }
+  }
+
+  private doubleRotateToRight(node: Node) {
+    this.rotateToRight(node.right as Node);
+    this.rotateToLeft(node);
+  }
+
+  private doubleRoutateToLeft(node: Node) {
+    this.rotateToLeft(node.left as Node);
+    this.rotateToRight(node);
+  }
+
+  private calculateFactor(node: Node) {
+    return this.getHeight(node.left) - this.getHeight(node.right);
+  }
+
+  private getValuesToPrint(type: Print) {
     if (this.root) {
       let values: number[] = [];
 
@@ -130,7 +197,6 @@ export class BinaryTree implements Tree {
         if (node.right) filterByType(node.right);
         if (type === "POST_ORDER") values.push(node.data);
       };
-
       filterByType(this.root);
       return values;
     } else {

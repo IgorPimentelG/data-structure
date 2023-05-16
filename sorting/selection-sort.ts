@@ -3,7 +3,7 @@ import { generatorDataset } from "./utils/generator";
 export class SelectionSort {
   sort(size: number) {
     const dataset = generatorDataset(size);
-    let length = dataset.length;
+    const length = dataset.length;
 
     console.log(dataset.join(" - "));
 

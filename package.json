@@ -13,6 +13,7 @@
     "build:priority-queue": "tsc ./queue/priority-queue/app.ts && node ./queue/priority-queue/app.js",
     "build:binary-tree": "tsc ./tree/binary-tree/app.ts && node ./tree/binary-tree/app.js",
     "build:avl-tree": "tsc ./tree/avl-tree/app.ts && node ./tree/avl-tree/app.js",
+    "build:heap-tree": "tsc ./tree/heap/app.ts && node ./tree/heap/app.js",
     "build:sorting": "tsc ./sorting/app.ts && node ./sorting/app.js"
   },
   "keywords": [],

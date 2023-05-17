@@ -1,32 +1,27 @@
 export class Node {
-  private _data: number;
-  private _left: Node | null;
+  private _key: number;
+  private _data: string;
   private _right: Node | null;
+  private _left: Node | null;
 
   constructor(
-    data: number,
-    left: Node | null = null,
-    right: Node | null = null
+    key: number,
+    data: string,
+    right: Node | null = null,
+    left: Node | null = null
   ) {
+    this._key = key;
     this._data = data;
-    this._left = left;
     this._right = right;
+    this._left = left;
   }
 
-  get data() {
-    return this._data;
+  set data(data: string) {
+    this._data = data;
   }
 
-  get left() {
-    return this._left;
-  }
-
-  get right() {
-    return this._right;
-  }
-
-  set data(value: number) {
-    this._data = value;
+  set key(key: number) {
+    this._key = key;
   }
 
   set left(ref: Node | null) {
@@ -35,5 +30,21 @@ export class Node {
 
   set right(ref: Node | null) {
     this._right = ref;
+  }
+
+  get key(): number {
+    return this._key;
+  }
+
+  get data(): string {
+    return this._data;
+  }
+
+  get left(): Node | null {
+    return this._left;
+  }
+
+  get right(): Node | null {
+    return this._right;
   }
 }

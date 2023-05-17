@@ -1,12 +1,13 @@
 import { Node } from "./node";
 
-export type PrintMethod = "PRE_ORDER" | "IN_ORDER" | "POST_ORDER";
+export type Course = "PRE_ORDER" | "IN_ORDER" | "POST_ORDER";
 
 export interface ITree {
-  insert: (data: number) => void;
-  remove: () => void;
-  search: (data: number) => Node | null;
-  print: (type: PrintMethod) => void;
-  max: () => Node | null;
+  insert: (key: number, data: string) => void;
+  remove: (key: number) => void;
   min: () => Node | null;
+  max: () => Node | null;
+  inorder: () => void;
+  preorder: () => void;
+  postorder: () => void;
 }

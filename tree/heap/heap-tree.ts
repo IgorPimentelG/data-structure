@@ -1,154 +1,98 @@
 import { Node } from "./node";
-import { Course, ITree } from "./types";
+import { ITree } from "./types";
 
 export class HeapTree implements ITree {
-
-  private root: Node | null = null;
+  private nodes: Node[] = [];
+  private size: number = 0;
 
   insert(key: number, data: string) {
     const node = new Node(key, data);
-    if (!this.root) {
-      this.root = node;
-    } else {
-      this.maxHeapify(node, this.root);
-    }
+    this.nodes[this.size] = node;
+    this.size++;
+    this.buildHeap();
   }
 
-  remove(key: number) {
-    if (!this.root) {
-      console.log("Empty Tree");
-    } else {
-      let nodeToRemove: Node | null = null;
-      const filter = (node: Node) => {
-        if (key === node.key) {
-          nodeToRemove = node;
-        };
-        if (node.left) filter(node.left);
-        if (node.right) filter(node.right);
-      };
+  preorder(index: number = 0) {
+    if (index >= this.size) {
+      return;
+    }
 
-      filter(this.root);
+    const node = this.nodes[index];
+    console.log(`[${node.key}] - ${node.data}`);
 
-      if (nodeToRemove) {
-        let fatherLastNode = this.root;
-        while (true) {
-          if (!fatherLastNode.right?.right) {
-            break;
-          }
-          fatherLastNode = fatherLastNode.right;
+    this.preorder(this.getLeftChild(index));
+    this.preorder(this.getRightChild(index));
+  }
+
+  min() {
+    if (this.size) {
+      let lesser = this.nodes[0];
+
+      const findLesser = (index: number = 0) => {
+        if (index >= this.size) {
+          return;
         }
 
-        this.swap(nodeToRemove, fatherLastNode.right as Node);
-        fatherLastNode.right = null;
-      } else {
-        console.log("Key not found!");
-      }
-    }
-  }
-
-  preorder() {
-    const values = this.getNodesByCourse("PRE_ORDER");
-    console.log(`Pré-order: ${values.join("")}\n`);
-  }
-
-  inorder() {
-    const values = this.getNodesByCourse("IN_ORDER");
-    console.log(`Em-order: ${values.join("")}\n`);
-  }
-
-  postorder() {
-    const values = this.getNodesByCourse("POST_ORDER");
-    console.log(`Pós-order: ${values.join("")}\n`);
-  }
-
-  min(showMessage: boolean = true, startNode: Node | null = this.root) {
-    if (startNode) {
-      let node = startNode;
-      while (node.left) {
-        node = node.left;
-      }
-
-      let currentMin = startNode;
-      const filter = (node: Node) => {
-        if (node.key < currentMin.key) {
-          currentMin = node;
+        if (this.nodes[index].key < lesser.key) {
+          lesser = this.nodes[index];
         }
-
-        if (node.left) filter(node.left);
-        if (node.right) filter(node.right);
-      };
-      filter(startNode);
-
-      if (showMessage) {
-        console.log(`MIN: [${currentMin?.key || null}] - ${currentMin?.data || null}\n`);
+        findLesser(this.getLeftChild(index));
       }
-      return currentMin;
+
+      findLesser();
+      console.log(`MIN: [${lesser?.key || null}] - ${lesser?.data || null}`);
+      return lesser;
     }
     console.log("Empty Tree");
     return null;
   }
 
   max() {
-    if (this.root) {
-      console.log(`MAX: [${this.root?.key || null}] - ${this.root?.data || null}`);
-      return this.root;
+    if (this.size) {
+      const root = this.nodes[0];
+      console.log(`MAX: [${root?.key || null}] - ${root?.data || null}`);
+      return root;
     }
     console.log("Empty Tree");
     return null;
   }
 
-  private maxHeapify(node: Node, currentNode: Node) {
-    const { left, right } = currentNode;
+  private getLeftChild(index: number): number {
+    return 2 * index + 1;
+  }
 
-    if (left && !right) {
-      currentNode.right = node;
-      return;
+  private getRightChild(index: number): number {
+    return 2 * index + 2;
+  }
+
+  private heapify(index: number) {
+    let largest = index;
+    const left = this.getLeftChild(index);
+    const right = this.getRightChild(index);
+
+    if (left < this.size && left > largest) {
+      largest = left;
     }
 
-    if (node.key > currentNode.key) {
-      this.swap(node, currentNode);
-    } else if (left && right && right.key > left.key) {
-      this.swap(right, left);
+    if (right < this.size && right > largest) {
+      largest = right;
     }
 
-    const isLeft = node.key < currentNode.key;
-    const isRight = !isLeft;
-
-    if (isLeft && !left) {
-      currentNode.left = node;
-    } else if (isRight && !right) {
-      currentNode.right = node;
-    } else if (isRight) {
-      this.maxHeapify(node, right!);
-    } else {
-      this.maxHeapify(node, left!);
+    if (largest !== index) {
+      this.swap(index, largest);
+      this.heapify(largest);
     }
   }
 
-  private getNodesByCourse(course: Course): string[] {
-    if (this.root) {
-      const nodes: Node[] = [];
-
-      const filterByCourse = (node: Node) => {
-        if (course === "PRE_ORDER") nodes.push(node);
-        if (node.left) filterByCourse(node.left);
-        if (course === "IN_ORDER") nodes.push(node);
-        if (node.right) filterByCourse(node.right);
-        if (course === "POST_ORDER") nodes.push(node);
-      };
-      filterByCourse(this.root);
-      return nodes.map((node) => `\n:: [${node.key}] - ${node.data}`);
-    } else {
-      console.log("Empty Tree");
-      return [];
+  private buildHeap() {
+    for (let i = Math.floor(this.size / 2); i >= 0; i--) {
+      this.heapify(i);
     }
   }
 
-  private swap(node1: Node, node2: Node) {
-    const { key, data } = node1;
-    node1.key = node2.key;
-    node1.data = node2.data;
-    node2.key = key;
-    node2.data = data;
+  private swap(index1: number, index2: number) {
+    const aux = this.nodes[index1];
+    this.nodes[index1] = this.nodes[index2];
+    this.nodes[index2] = aux;
   }
 }

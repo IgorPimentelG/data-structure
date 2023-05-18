@@ -16,14 +16,14 @@ tree.insert(7, "Data 8");
 tree.insert(4, "Data 9");
 tree.insert(11, "Data 10");
 
-// // Show min and max
+// Show min and max
 tree.max();
 tree.min();
 
 // Remove
-tree.remove(12);
+// tree.remove(16);
+
 
 // Show
 tree.preorder();
-tree.inorder();
-tree.postorder();
+

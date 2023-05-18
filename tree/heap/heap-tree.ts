@@ -57,7 +57,6 @@ export class HeapTree implements ITree {
     return { node: null };
   }
 
-
   preorder(index: number = 0) {
     if (index >= this.size) {
       return;
@@ -103,6 +102,39 @@ export class HeapTree implements ITree {
     return null;
   }
 
+  heapify(index: number = 0, size = this.size) {
+    let largest = index;
+    const left = this.getLeftChild(index);
+    const right = this.getRightChild(index);
+
+    if (left < size && this.nodes[left].key > this.nodes[largest].key) {
+      largest = left;
+    }
+
+    if (right < size && this.nodes[right].key > this.nodes[largest].key) {
+      largest = right;
+    }
+
+    if (largest !== index) {
+      this.swap(index, largest);
+      this.heapify(largest, size);
+    }
+  }
+
+  swap(index1: number, index2: number) {
+    const aux = this.nodes[index1];
+    this.nodes[index1] = this.nodes[index2];
+    this.nodes[index2] = aux;
+  }
+
+  getNodes() {
+    return this.nodes;
+  }
+
+  getSize() {
+    return this.size;
+  }
+
   private getLeftChild(index: number): number {
     return 2 * index + 1;
   }
@@ -111,34 +143,9 @@ export class HeapTree implements ITree {
     return 2 * index + 2;
   }
 
-  private heapify(index: number = 0) {
-    let largest = index;
-    const left = this.getLeftChild(index);
-    const right = this.getRightChild(index);
-
-    if (left < this.size && this.nodes[left].key > this.nodes[largest].key) {
-      largest = left;
-    }
-
-    if (right < this.size && this.nodes[right].key > this.nodes[largest].key) {
-      largest = right;
-    }
-
-    if (largest !== index) {
-      this.swap(index, largest);
-      this.heapify(largest);
-    }
-  }
-
   private buildHeap() {
     for (let i = Math.floor(this.size / 2); i >= 0; i--) {
       this.heapify(i);
     }
-  }
-
-  private swap(index1: number, index2: number) {
-    const aux = this.nodes[index1];
-    this.nodes[index1] = this.nodes[index2];
-    this.nodes[index2] = aux;
   }
 }

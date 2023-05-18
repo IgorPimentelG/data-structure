@@ -1,5 +1,5 @@
 import { Node } from "./node";
-import { ITree } from "./types";
+import { ITree, SearchResult } from "./types";
 
 export class HeapTree implements ITree {
   private nodes: Node[] = [];
@@ -11,6 +11,52 @@ export class HeapTree implements ITree {
     this.size++;
     this.buildHeap();
   }
+
+  remove(key: number) {
+    if (this.size === 0) {
+      console.log("Empty Tree.");
+    } else {
+      const { node, index } = this.search(key);
+
+      if (node && index !== undefined) {
+        const lastNode = this.nodes[this.size - 1];
+        this.nodes[index] = lastNode;
+        this.nodes.pop();
+        this.size--;
+
+        this.heapify();
+      } else {
+        console.log(`Key ${key} not found.`);
+      }
+    }
+  }
+
+  search(key: number, index: number = 0): SearchResult {
+    if (index >= this.size) {
+      return { node: null };
+    }
+
+    const node = this.nodes[index];
+    if (node.key === key) {
+      return {
+        node,
+        index,
+      };
+    }
+
+    const left = this.search(key, this.getLeftChild(index));
+    if (left) {
+      return left;
+    }
+
+    const right = this.search(key, this.getRightChild(index));
+    if (right) {
+      return right;
+    }
+
+    return { node: null };
+  }
+
 
   preorder(index: number = 0) {
     if (index >= this.size) {
@@ -40,7 +86,7 @@ export class HeapTree implements ITree {
       }
 
       findLesser();
-      console.log(`MIN: [${lesser?.key || null}] - ${lesser?.data || null}`);
+      console.log(`MIN: [${lesser?.key || null}] - ${lesser?.data || null}\n`);
       return lesser;
     }
     console.log("Empty Tree");
@@ -65,16 +111,16 @@ export class HeapTree implements ITree {
     return 2 * index + 2;
   }
 
-  private heapify(index: number) {
+  private heapify(index: number = 0) {
     let largest = index;
     const left = this.getLeftChild(index);
     const right = this.getRightChild(index);
 
-    if (left < this.size && left > largest) {
+    if (left < this.size && this.nodes[left].key > this.nodes[largest].key) {
       largest = left;
     }
 
-    if (right < this.size && right > largest) {
+    if (right < this.size && this.nodes[right].key > this.nodes[largest].key) {
       largest = right;
     }
 

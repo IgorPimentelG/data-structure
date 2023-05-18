@@ -20,9 +20,11 @@ tree.insert(11, "Data 10");
 tree.max();
 tree.min();
 
-// Remove
-// tree.remove(16);
+const { node } = tree.search(7);
+console.log(`SEARCH: [${node?.key || null}] -  ${node?.data || null}\n`);
 
+// Remove
+tree.remove(16);
 
 // Show
 tree.preorder();

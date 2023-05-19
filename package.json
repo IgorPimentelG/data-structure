@@ -16,7 +16,8 @@
     "build:heap-tree": "tsc ./tree/heap/app.ts && node ./tree/heap/app.js",
     "build:sorting": "tsc ./sorting/app.ts && node ./sorting/app.js",
     "build:adjacency-matrix": "tsc ./graph/adjacency-matrix/app.ts && node ./graph/adjacency-matrix/app.js",
-    "build:adjacency-list": "tsc ./graph/adjacency-list/app.ts && node ./graph/adjacency-list/app.js"
+    "build:adjacency-list": "tsc ./graph/adjacency-list/app.ts && node ./graph/adjacency-list/app.js",
+    "build:search": "tsc ./search/app.ts && node ./search/app.js"
   },
   "keywords": [],
   "author": "",

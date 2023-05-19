@@ -1,6 +1,6 @@
 import { Graph } from "./graph";
 
-console.log("--- Adjacency Matriz ---");
+console.log("--- Adjacency List ---");
 
 const graph = new Graph(5);
 
@@ -14,7 +14,7 @@ graph.insert(1, 2);
 graph.remove(1, 2);
 
 // Search
-graph.serach(0, 2);
+graph.serach(0, 3);
 graph.serach(1, 2);
 console.log("\n");
 

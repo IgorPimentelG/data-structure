@@ -20,3 +20,6 @@ console.log("\n");
 
 // Show
 graph.print();
+
+// Depth First
+graph.dfs(0)

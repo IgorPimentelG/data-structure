@@ -56,4 +56,22 @@ export class Graph {
       lineNumber++;
     }
   }
+
+  dfs(vertex: number) {
+    const visited: boolean[] = new Array(this.matrix.length).fill(false);
+
+    console.log("\nDFS:");
+
+    const run = (vertex: number) => {
+      visited[vertex] = true;
+      console.log(`${vertex} ✅`);
+
+      for (let i = 0; i < this.matrix.length; i++) {
+        if (this.matrix[vertex][i] && !visited[i]) {
+          run(i);
+        }
+      }
+    }
+    run(vertex);
+  }
 }

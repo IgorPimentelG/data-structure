@@ -1,12 +1,13 @@
 import { generatorDataset } from "./utils/generator";
 
 export class MergeSort {
-  sort(size: number) {
+  sort(size: number, showMessage = true) {
     let data = generatorDataset(size);
 
-    console.log(data.join(" - "));
+    showMessage && console.log(data.join(" - "));
     data = this.mergesort(data);
-    console.log(data.join(" - "));
+    showMessage && console.log(data.join(" - "));
+    return data;
   }
 
   private mergesort(

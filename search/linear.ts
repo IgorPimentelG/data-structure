@@ -1,9 +1,11 @@
+import { generatorDataset } from "../sorting/utils/generator";
+
 export class LinearSearch {
 
   private data: number[];
 
   constructor(size: number) {
-    this.data = [...Array.from(Array(size).keys())];
+    this.data = generatorDataset(size);
   }
 
   search(value: number) {

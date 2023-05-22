@@ -1,2 +1,4 @@
 *.js
+*-lock.json
+*.lock
 node_modules

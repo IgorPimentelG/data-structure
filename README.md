@@ -4,11 +4,15 @@
 
 A estrutura de dados é o ramo da computação que estuda os diversos mecanismos de organização de dados para atender aos diferentes requisitos de processamento.
 
-Este é um projeto que visa implementar e estudar as principais estruturas de dados  utilizadas na computação, como: listas encadeadas, filas, pilhas e árvores.
+Este é um projeto que visa implementar e estudar as principais estruturas de dados  utilizadas na computação, como: listas encadeadas, filas, pilhas, árvores,
+algoritmos de ordenação e pesquisa.
 
 Estrutura da implementação do projeto:
 
 ```
+├───graph
+│   ├───adjacency-list
+│   └───adjacency-matrix
 ├───linked-list
 │   ├───circular-linked-list
 │   ├───doubly-linked-list
@@ -17,13 +21,20 @@ Estrutura da implementação do projeto:
 │   ├───circular-queue
 │   ├───priority-queue
 │   └───simple-queue
+├───search
+├───sorting
 ├───stack
 └───tree
     ├───avl-tree
-    └───binary-tree
+    ├───b-tree
+    ├───binary-tree
+    └───heap
 ```
 
 ## ⚙️ Execução
+
+Atualmente o projeto foi desenvolvido para ser executando via console. Desta forma, segue a lista dos 
+scripts que podem ser executados para visualizar o resultado dos testes pré-definidos dos algoritmos:
 
 Para executar a lista encadeada:
 
@@ -77,6 +88,41 @@ Para executar a árvore AVL:
 
 ```bash
   yarn build:avl-tree
+```
+
+Para executar a árvore B:
+
+```bash
+  yarn build:b-tree
+```
+
+Para executar a árvore heap:
+
+```bash
+  yarn build:heap-tree
+```
+Para executar os algoritmos de ordenação:
+
+```bash
+  yarn build:sorting
+```
+
+Para executar o algoritmo de grafo utilizando matriz de adjacência:
+
+```bash
+  yarn build:adjacency-matrix
+```
+
+Para executar o algoritmo de grafo utilizando lista de adjacência:
+
+```bash
+  yarn build:adjacency-list
+```
+
+Para executar os algoritmos de pesquisa:
+
+```bash
+  yarn build:search
 ```
 
 ## Autores

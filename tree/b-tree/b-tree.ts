@@ -23,6 +23,7 @@ export class BTree implements Tree {
 
       if (node.key === nearestNode?.key) {
         console.log("Key already exists!");
+        return;
       } else if (nearestPage) {
         nearestPage.add([node]);
 
@@ -74,14 +75,12 @@ export class BTree implements Tree {
 
   private partition(page: Page) {
     const middle = this.getMiddle();
-    console.log("🚀 ~ file: b-tree.ts:87 ~ BTree ~ partition ~ pageRight:", page.nodes)
 
     const pageLeft = new Page(this.order);
     pageLeft.add(page.nodes.slice(0, middle));
 
     const pageRight = new Page(this.order);
     pageRight.add(page.nodes.slice(middle + 1));
-    console.log("🚀 ~ file: b-tree.ts:87 ~ BTree ~ partition ~ pageRight:", page.nodes)
 
     const node = page.nodes[middle];
     node.pageLeft = pageLeft;

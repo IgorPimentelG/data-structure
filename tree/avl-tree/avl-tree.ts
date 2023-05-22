@@ -32,13 +32,13 @@ export class AVLTree implements Tree {
 
   remove(data: number) {
     if (!this.root) {
-      console.log("🚀 ~ Empty Tree");
+      console.log("Empty Tree");
     } else {
       const findNode = (value: number, node: Node): Node | null => {
         if (value < node.data && node.left) {
-          node.left = findNode(data, node.left);
+          node.left = findNode(value, node.left);
         } else if (value > node.data && node.right) {
-          node.right = findNode(data, node.right);
+          node.right = findNode(value, node.right);
         } else {
           if (!node.left) {
             return node.right;
@@ -47,29 +47,29 @@ export class AVLTree implements Tree {
           } else {
             const minValue = this.min(node.right);
             node.data = minValue!.data;
-            node.right = findNode(value, node.right);
-            this.balance();
+            node.right = findNode(minValue!.data, node.right);
           }
         }
         return node;
       }
       findNode(data, this.root);
+      this.balance();
     }
   }
 
   preorder() {
     const values = this.getValuesToPrint("PRE_ORDER");
-    console.log(`🚀 ~ Pré-order: (${values.join(" - ")})`);
+    console.log(`Pré-order: (${values.join(" - ")})`);
   }
 
   inorder() {
     const values = this.getValuesToPrint("IN_ORDER");
-    console.log(`🚀 ~ Em-order: (${values.join(" - ")})`);
+    console.log(`Em-order: (${values.join(" - ")})`);
   }
 
   postorder() {
     const values = this.getValuesToPrint("POST_ORDER");
-    console.log(`🚀 ~ Pós-order: (${values.join(" - ")})`);
+    console.log(`Pós-order: (${values.join(" - ")})`);
   }
 
   min(startNode: Node | null = this.root) {
@@ -80,7 +80,7 @@ export class AVLTree implements Tree {
       }
       return node;
     }
-    console.log("🚀 ~ Empty Tree");
+    console.log("Empty Tree");
     return null;
   }
 
@@ -92,7 +92,7 @@ export class AVLTree implements Tree {
       }
       return node;
     }
-    console.log("🚀 ~ Empty Tree");
+    console.log("Empty Tree");
     return null;
   }
 
@@ -200,7 +200,7 @@ export class AVLTree implements Tree {
       filterByType(this.root);
       return values;
     } else {
-      console.log("🚀 ~ Empty Tree");
+      console.log("Empty Tree");
       return [];
     }
   }

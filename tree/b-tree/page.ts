@@ -38,11 +38,11 @@ export class Page implements IPage {
 
   print() {
     this._nodes.forEach((node) => {
+      console.log(`[${node.key}] -> ${node.data}`);
       if (!this._isLeaf) {
         node.pageLeft?.print();
         node.pageRight?.print();
       }
-      console.log(`[${node.key}] -> ${node.data}`);
     });
   }
 
